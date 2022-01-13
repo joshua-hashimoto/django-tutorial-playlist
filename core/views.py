@@ -1,6 +1,7 @@
 import random
 
 from django.http import HttpResponse
+from django.shortcuts import render
 
 
 def index_view(request):
@@ -11,13 +12,10 @@ def index_view(request):
         'name': name,
         'random_number': random_number,
     }
-
-    HTML_STRING = """
-    <h1>Hi {name}!</h1>
-    <p>Today's lucky number is... {random_number}</>
-    """.format(**context)
-    return HttpResponse(HTML_STRING)
+    template_name = "index.html"
+    return render(request, template_name, context)
 
 
 def about_view(request):
-    return HttpResponse("About page")
+    template_name = "about.html"
+    return render(request, template_name)
