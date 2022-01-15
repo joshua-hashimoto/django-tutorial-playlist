@@ -13,3 +13,6 @@ class Article(models.Model):
     # TODO: サムネイルを追加する
     # TODO: 作成者を追加する
     # TODO: タグを追加する
+
+    def __str__(self):
+        return self.title
