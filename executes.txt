@@ -28,3 +28,17 @@ datetime.datetime(2022, 1, 14, 14, 55, 48, 291022, tzinfo=datetime.timezone.utc)
 >>> article.updated_at
 datetime.datetime(2022, 1, 14, 15, 14, 27, 292493, tzinfo=datetime.timezone.utc)  # 更新すると値が自動で変わる
 >>> exit()
+
+
+-----------
+
+
+Execution samples for Lesson 9.
+
+(django-tutorial-playlist) path/to/project/dir % python manage.py createsuperuser
+Username (leave blank to use '<あなたのユーザー名>'): onandgo
+Email address: 
+Password: 
+Password (again): 
+Superuser created successfully.
+(django-tutorial-playlist) onandgo @~/dev/projects/youtube/prod/django-tutorial-playlist: 
