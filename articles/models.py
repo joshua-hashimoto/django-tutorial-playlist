@@ -16,3 +16,9 @@ class Article(models.Model):
 
     def __str__(self):
         return self.title
+
+    def get_description(self):
+        description = self.description
+        if len(description) > 50:
+            return description[:50] + "..."
+        return description
