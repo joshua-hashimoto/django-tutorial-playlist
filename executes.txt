@@ -1,0 +1,30 @@
+Execution samples for Lesson 8.
+
+>>> from articles.models import Article
+>>> Article.objects.all()
+<QuerySet []>
+>>> article = Article(slug="first", title="初めての記事", description="", content="これは初めての記事です")
+>>> article.title
+'初めての記事'
+>>> article.save()
+>>> Article.objects.all()
+<QuerySet [<Article: Article object (1)>]>
+>>> article = Article.objects.get(id=1)
+>>> article.title
+'初めての記事'
+>>> article.content
+'これは初めての記事です'
+>>> article.created_at
+datetime.datetime(2022, 1, 14, 14, 55, 48, 291022, tzinfo=datetime.timezone.utc)
+>>> article.updated_at
+datetime.datetime(2022, 1, 14, 14, 55, 48, 291357, tzinfo=datetime.timezone.utc)
+>>> article.title = "タイトルを変えました"
+>>> article.save()
+>>> article = Article.objects.get(id=1)
+>>> article.title
+'タイトルを変えました'
+>>> article.created_at
+datetime.datetime(2022, 1, 14, 14, 55, 48, 291022, tzinfo=datetime.timezone.utc)  # 更新しても値は変わらない
+>>> article.updated_at
+datetime.datetime(2022, 1, 14, 15, 14, 27, 292493, tzinfo=datetime.timezone.utc)  # 更新すると値が自動で変わる
+>>> exit()
