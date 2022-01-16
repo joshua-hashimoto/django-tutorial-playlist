@@ -124,6 +124,9 @@ STATICFILES_DIRS = [
 ]
 STATIC_ROOT = 'staticfiles'
 
+MEDIA_URL = "media/"  # ブラウザから見た時の起点
+MEDIA_ROOT = "mediafiles"  # 実際の保存先
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
