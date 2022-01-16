@@ -11,7 +11,7 @@
         {% for object in object_list %}
             <div class="tile is-child notification">
                 <p>
-                    <a class="title" href="{% url 'articles:article_detail' article_slug=object.slug %}">{{ object.title }}</a>
+                    <a class="title" href="{{ object.get_absolute_url }}">{{ object.title }}</a>
                 </p>
                 <p class="subtitle">{{ object.get_description }}</p>
             </div>
