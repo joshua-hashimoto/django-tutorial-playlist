@@ -1,28 +1,21 @@
-{% load static %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
-    <link rel="stylesheet" href="{% static 'css/index.css' %}">
-</head>
-<body>
-    <div class="section">
-        <h1>記事一覧</h1>
-        <div class="tile is-parent is-vertical">
-            {% for object in object_list %}
-                <div class="tile is-child notification">
-                    <p>
-                        <a class="title" href="">{{ object.title }}</a>
-                    </p>
-                    <p class="subtitle">{{ object.get_description }}</p>
-                </div>
-            {% endfor %}
-        </div>
+{% extends '_base.html' %}
+
+{% block title %}
+    {{ block.super }} | 記事一覧
+{% endblock title %}
+
+{% block content %}
+<div class="section">
+    <h1>記事一覧</h1>
+    <div class="tile is-parent is-vertical">
+        {% for object in object_list %}
+            <div class="tile is-child notification">
+                <p>
+                    <a class="title" href="">{{ object.title }}</a>
+                </p>
+                <p class="subtitle">{{ object.get_description }}</p>
+            </div>
+        {% endfor %}
     </div>
-    <script src="{% static 'js/index.js' %}"></script>
-</body>
-</html>
+</div>
+{% endblock content %}
