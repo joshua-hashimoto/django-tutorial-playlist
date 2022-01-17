@@ -1,6 +1,7 @@
 from django.http import Http404, HttpResponseBadRequest
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 
+from .forms import ArticleForm
 from .models import Article
 
 
@@ -28,18 +29,14 @@ def article_detail_view(request, article_slug):
 
 
 def article_create_view(request):
-    if request.method == "POST":
-        form = request.POST
-        try:
-            slug = form.get("slug", None)
-            title = form.get("title", None)
-            description = form.get("description", None)
-            content = form.get("content", None)
-            # new_article = Article(slug=slug, title=title, description=description, content=content)
-            # new_article.save()
-            Article.objects.create(slug=slug, title=title, description=description, content=content)
-        except Exception:
-            raise HttpResponseBadRequest
-    context = {}
+    form = ArticleForm(request.POST or None)
+    if form.is_valid():
+        print(form.cleaned_data)
+        # form.cleaned_data -> 辞書
+        article = Article.objects.create(**form.cleaned_data)
+        return redirect("articles:article_detail", article_slug=article.slug)
+    context = {
+        "form": form,
+    }
     template_name = "articles/article_create.html"
     return render(request, template_name, context)

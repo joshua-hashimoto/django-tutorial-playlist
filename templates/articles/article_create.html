@@ -10,7 +10,7 @@
     {% comment %} <form action="." method="POST"></form> {% endcomment %}
     <form action="{% url 'articles:article_create' %}" method="POST">
         {% csrf_token %}
-        <div class="field">
+        {% comment %} <div class="field">
             <label class="label">URL名</label>
             <div class="control">
                 <input class="input" type="text" name="slug" placeholder="articles/の後に続くURL名を設定">
@@ -33,7 +33,8 @@
             <div class="control">
                 <textarea class="textarea" name="content" id="content" cols="30" rows="10" placeholder="記事内容を自由に書いて下さい"></textarea>
             </div>
-        </div>
+        </div> {% endcomment %}
+        {{ form.as_p }}
         <button class="button is-primary" type="submit">保存</button>
     </form>
 </div>
