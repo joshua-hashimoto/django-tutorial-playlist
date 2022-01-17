@@ -6,7 +6,7 @@ from .models import Article
 
 
 class ArticleForm(forms.ModelForm):
-    description = forms.CharField(max_length=250, widget=forms.Textarea(attrs={"class": "textarea", "rows": 7}))
+    description = forms.CharField(max_length=250, widget=forms.Textarea(attrs={"class": "textarea", "rows": 3}))
 
     class Meta:
         model = Article
@@ -19,7 +19,7 @@ class ArticleForm(forms.ModelForm):
         widgets = {
             "slug": forms.TextInput(attrs={"class": "input"}),
             "title": forms.TextInput(attrs={"class": "input"}),
-            'content': forms.Textarea(attrs={"class": "textarea", "rows": 5}),
+            'content': forms.Textarea(attrs={"class": "textarea", "rows": 7}),
         }
 
     # モデル側のバリデーションが効く
