@@ -1,0 +1,40 @@
+{% extends '_base.html' %}
+
+{% block title %}
+    {{ block.super }}| 記事作成
+{% endblock title %}
+
+{% block content %}
+<div class="section">
+    <div class="title">記事作成</div>
+    {% comment %} <form action="." method="POST"></form> {% endcomment %}
+    <form action="{% url 'articles:article_create' %}" method="POST">
+        {% csrf_token %}
+        <div class="field">
+            <label class="label">URL名</label>
+            <div class="control">
+                <input class="input" type="text" name="slug" placeholder="articles/の後に続くURL名を設定">
+            </div>
+        </div>
+        <div class="field">
+            <label class="label">記事タイトル</label>
+            <div class="control">
+                <input class="input" type="text" name="title">
+            </div>
+        </div>
+        <div class="field">
+            <label class="label">記事の概要</label>
+            <div class="control">
+                <input class="input" type="text" name="description">
+            </div>
+        </div>
+        <div class="field">
+            <label class="label">内容</label>
+            <div class="control">
+                <textarea class="textarea" name="content" id="content" cols="30" rows="10" placeholder="記事内容を自由に書いて下さい"></textarea>
+            </div>
+        </div>
+        <button class="button is-primary" type="submit">保存</button>
+    </form>
+</div>
+{% endblock content %}
