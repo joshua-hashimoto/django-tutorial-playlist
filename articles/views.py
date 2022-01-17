@@ -29,7 +29,7 @@ def article_detail_view(request, article_slug):
 
 
 def article_create_view(request):
-    form = ArticleForm(request.POST or None)
+    form = ArticleForm(request.POST or None, request.FILES or None)
     if form.is_valid():
         # form.cleaned_data -> 辞書
         article = form.save(commit=False)

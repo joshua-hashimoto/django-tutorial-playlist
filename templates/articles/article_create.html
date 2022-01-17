@@ -8,7 +8,7 @@
 <div class="section">
     <div class="title">記事作成</div>
     {% comment %} <form action="." method="POST"></form> {% endcomment %}
-    <form action="{% url 'articles:article_create' %}" method="POST">
+    <form action="{% url 'articles:article_create' %}" method="POST" enctype="multipart/form-data">
         {% csrf_token %}
         {% comment %} <div class="field">
             <label class="label">URL名</label>

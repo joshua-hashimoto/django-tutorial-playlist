@@ -6,11 +6,17 @@ from .models import Article
 
 
 class ArticleForm(forms.ModelForm):
+    thumbnail = forms.ImageField(
+        label='サムネイル',
+        widget=forms.ClearableFileInput(),
+        required=False
+    )
     description = forms.CharField(max_length=250, widget=forms.Textarea(attrs={"class": "textarea", "rows": 3}))
 
     class Meta:
         model = Article
         fields = (
+            "thumbnail",
             "slug",
             "title",
             "description",
