@@ -6,7 +6,7 @@ from .models import Article
 
 
 def article_list_view(request):
-    articles = Article.objects.all()
+    articles = Article.objects.all().order_by("-created_at")
     context = {
         "object_list": articles,
     }
@@ -31,9 +31,10 @@ def article_detail_view(request, article_slug):
 def article_create_view(request):
     form = ArticleForm(request.POST or None)
     if form.is_valid():
-        print(form.cleaned_data)
         # form.cleaned_data -> 辞書
-        article = Article.objects.create(**form.cleaned_data)
+        article = form.save(commit=False)
+        article.title += ": ☆"
+        article.save()
         return redirect("articles:article_detail", article_slug=article.slug)
     context = {
         "form": form,
