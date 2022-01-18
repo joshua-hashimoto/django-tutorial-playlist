@@ -32,12 +32,28 @@ def article_create_view(request):
     form = ArticleForm(request.POST or None, request.FILES or None)
     if form.is_valid():
         # form.cleaned_data -> 辞書
-        article = form.save(commit=False)
-        article.title += ": ☆"
-        article.save()
+        # article = form.save(commit=False)
+        # article.title += ": ☆"
+        # article.save()
+        article = form.save()
         return redirect("articles:article_detail", article_slug=article.slug)
     context = {
         "form": form,
     }
     template_name = "articles/article_create.html"
+    return render(request, template_name, context)
+
+
+def article_edit_view(request, article_slug):
+    article = get_object_or_404(Article, slug=article_slug)
+    form = ArticleForm(request.POST or None, request.FILES or None, instance=article)
+    if form.is_valid():
+        article = form.save()
+        return redirect("articles:article_detail", article_slug=article.slug)
+
+    context = {
+        "form": form,
+        "object": article,
+    }
+    template_name = "articles/article_edit.html"
     return render(request, template_name, context)
