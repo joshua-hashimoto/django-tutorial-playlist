@@ -1,4 +1,5 @@
 from django.http import Http404, HttpResponseBadRequest
+from django.urls import reverse
 from django.shortcuts import render, get_object_or_404, redirect
 
 from .forms import ArticleForm
@@ -57,3 +58,15 @@ def article_edit_view(request, article_slug):
     }
     template_name = "articles/article_edit.html"
     return render(request, template_name, context)
+
+
+def article_delete_view(request, article_slug):
+    article = get_object_or_404(Article, slug=article_slug)
+
+    if request.method == "POST":
+        article.delete()
+        success_url = reverse("articles:article_list")
+        return redirect(success_url)
+
+    success_url = reverse("articles:article_detail", kwargs={"article_slug": article.slug})
+    return redirect(success_url)
