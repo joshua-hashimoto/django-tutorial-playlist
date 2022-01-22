@@ -1,4 +1,5 @@
 {% extends '_base.html' %}
+{% load widget_tweaks %}
 
 {% block title %}
     {{ block.super }} | ユーザー登録
@@ -7,5 +8,28 @@
 {% block content %}
 <div class="section">
     <div class="title">ユーザー登録</div>
+    <form action="." method="post">
+        {% csrf_token %}
+        {% for field in form %}
+            <div class="field">
+                <labe class="label">
+                    {{ field.label }}
+                </labe>
+                <div class="control">
+                    {{ field | add_class:"input" | add_error_class:"is-danger" }}
+                </div>
+                {% if not field.errors %}
+                    {% if field.help_text %}
+                        <p class="help">{{ field.help_text }}</p>
+                    {% endif %}
+                {% else %}
+                    {% for error in field.errors %}
+                        <p class="help is-danger">{{ error }}</p>
+                    {% endfor %}
+                {% endif %}
+            </div>
+        {% endfor %}
+        <button class="button is-primary" type="submit">登録</button>
+    </form>
 </div>
 {% endblock content %}

@@ -1,3 +1,4 @@
+from django.contrib.auth.forms import UserCreationForm
 from django.shortcuts import render, redirect
 
 
@@ -8,7 +9,15 @@ def login_view(request):
 
 
 def signup_view(request):
-    context = {}
+    form = UserCreationForm(request.POST or None)
+    if form.is_valid():
+        form.save()
+        # ユーザーの登録に成功したら、ログイン画面へ遷移する
+        return redirect("accounts:login")
+
+    context = {
+        "form": form,
+    }
     template_name = "accounts/signup.html"
     return render(request, template_name, context)
 
