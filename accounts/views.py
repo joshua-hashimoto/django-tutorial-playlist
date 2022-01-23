@@ -1,4 +1,4 @@
-from django.contrib.auth import login
+from django.contrib.auth import login, logout
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 from django.shortcuts import render, redirect
 
@@ -34,6 +34,8 @@ def signup_view(request):
 
 def logout_view(request):
     # ログアウトはモーダルを使ってやるため、基本的にはredirectしかしない
+    if request.method == "POST":
+        logout(request)
     context = {}
     template_name = "accounts/logout_modal.html"
     return redirect("articles:article_list")

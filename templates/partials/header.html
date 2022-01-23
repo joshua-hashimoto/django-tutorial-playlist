@@ -6,6 +6,9 @@
     </div>
     <div class="navbar-end">
         {% if request.user.is_authenticated %}
+            <div class="navbar-item">
+                {% include "accounts/logout_modal.html" %}
+            </div>
         {% else %}
             <div class="navbar-item">
                 <div class="buttons">

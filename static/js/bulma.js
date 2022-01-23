@@ -3,12 +3,10 @@
  */
 
 // modalの開閉用イベントをはる
-for (const element of document.querySelectorAll(
-    ".modal .delete, .show-modal"
-)) {
+for (const element of document.querySelectorAll(".modal-close, .show-modal")) {
+    const modalId = element.dataset.target;
+    const modal = document.getElementById(modalId);
     element.addEventListener("click", (event) => {
-        const modalId = element.dataset.target;
-        const modal = document.getElementById(modalId);
         modal.classList.toggle("is-active");
     });
 }
