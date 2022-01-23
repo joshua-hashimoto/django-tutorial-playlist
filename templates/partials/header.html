@@ -5,15 +5,18 @@
         </a>
     </div>
     <div class="navbar-end">
-        <div class="navbar-item">
-            <div class="buttons">
-                <a class="button is-primary" href="{% url 'accounts:signup' %}">
-                    <strong>ユーザー登録</strong>
-                </a>
-                <a class="button is-light" href="{% url 'accounts:login' %}">
-                    ログイン
-                </a>
+        {% if request.user.is_authenticated %}
+        {% else %}
+            <div class="navbar-item">
+                <div class="buttons">
+                    <a class="button is-primary" href="{% url 'accounts:signup' %}">
+                        <strong>ユーザー登録</strong>
+                    </a>
+                    <a class="button is-light" href="{% url 'accounts:login' %}">
+                        ログイン
+                    </a>
+                </div>
             </div>
-        </div>
+        {% endif %}
     </div>
 </nav>
