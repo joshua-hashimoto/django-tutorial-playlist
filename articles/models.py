@@ -1,7 +1,11 @@
 # https://docs.djangoproject.com/ja/4.0/ref/models/fields/#model-field-types
 
+from django.conf import settings
 from django.db import models
 from django.urls import reverse
+
+
+User = settings.AUTH_USER_MODEL
 
 
 def upload_image_to(instance, filename):
@@ -10,6 +14,7 @@ def upload_image_to(instance, filename):
 
 
 class Article(models.Model):
+    author = models.ForeignKey(User, on_delete=models.CASCADE)
     thumbnail = models.ImageField(upload_to=upload_image_to, blank=True, null=True)
     slug = models.SlugField()
     title = models.CharField(max_length=120)
@@ -17,7 +22,6 @@ class Article(models.Model):
     content = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-    # TODO: 作成者を追加する
     # TODO: タグを追加する
 
     def __str__(self):

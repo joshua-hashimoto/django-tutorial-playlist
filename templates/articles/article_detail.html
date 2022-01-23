@@ -8,11 +8,13 @@
         <div>
             <a href="{% url 'articles:article_list' %}" class="button is-small">戻る</a>
         </div>
-        <div class="buttons has-addons">
-            <a href="{% url 'articles:article_edit' article_slug=object.slug %}" class="button is-small is-success">編集</a>
-            {% comment %} 明示的にデータを渡す {% endcomment %}
-            {% include "articles/article_delete_modal.html" with object=object %}
-        </div>
+        {% if is_user_article %}
+            <div class="buttons has-addons">
+                <a href="{% url 'articles:article_edit' article_slug=object.slug %}" class="button is-small is-success">編集</a>
+                {% comment %} 明示的にデータを渡す {% endcomment %}
+                {% include "articles/article_delete_modal.html" with object=object %}
+            </div>
+        {% endif %}
     </div>
     <div class="mt-3">
         {% if object.thumbnail %}

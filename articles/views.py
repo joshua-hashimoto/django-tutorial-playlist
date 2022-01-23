@@ -22,8 +22,10 @@ def article_detail_view(request, article_slug):
     #     raise Http404
 
     article = get_object_or_404(Article, slug=article_slug)
+    is_user_article = article.author == request.user
     context = {
         "object": article,
+        "is_user_article": is_user_article,
     }
     template_name = "articles/article_detail.html"
     return render(request, template_name, context)
@@ -36,7 +38,9 @@ def article_create_view(request):
         # article = form.save(commit=False)
         # article.title += ": ☆"
         # article.save()
-        article = form.save()
+        article = form.save(commit=False)
+        article.author = request.user
+        article.save()
         return redirect("articles:article_detail", article_slug=article.slug)
     context = {
         "form": form,
@@ -46,7 +50,7 @@ def article_create_view(request):
 
 
 def article_edit_view(request, article_slug):
-    article = get_object_or_404(Article, slug=article_slug)
+    article = get_object_or_404(Article, slug=article_slug, author=request.user)
     form = ArticleForm(request.POST or None, request.FILES or None, instance=article)
     if form.is_valid():
         article = form.save()
@@ -61,7 +65,7 @@ def article_edit_view(request, article_slug):
 
 
 def article_delete_view(request, article_slug):
-    article = get_object_or_404(Article, slug=article_slug)
+    article = get_object_or_404(Article, slug=article_slug, author=request.user)
 
     if request.method == "POST":
         article.delete()

@@ -7,7 +7,15 @@
     <div class="navbar-end">
         {% if request.user.is_authenticated %}
             <div class="navbar-item">
-                {% include "accounts/logout_modal.html" %}
+                <div class="buttons">
+                    <a class="button is-primary" href="{% url 'articles:article_create' %}">
+                        <span class="icon">
+                        <i class="fas fa-plus"></i>
+                        </span>
+                        <span>新しい記事を作成する</span>
+                    </a>
+                    {% include "accounts/logout_modal.html" %}
+                </div>
             </div>
         {% else %}
             <div class="navbar-item">
