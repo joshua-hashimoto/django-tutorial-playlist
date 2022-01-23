@@ -1,9 +1,19 @@
-from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth import login
+from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 from django.shortcuts import render, redirect
 
 
 def login_view(request):
-    context = {}
+    form = AuthenticationForm(request, data=request.POST or None)
+    if form.is_valid():
+        # NOTE: get_user()はAuthenticationFormにのみ存在するメソッド
+        user = form.get_user()
+        login(request, user)
+        return redirect("articles:article_list")
+
+    context = {
+        "form": form,
+    }
     template_name = "accounts/login.html"
     return render(request, template_name, context)
 
