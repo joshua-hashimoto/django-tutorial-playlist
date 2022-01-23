@@ -56,6 +56,10 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'core.urls'
 
+# login_requiredなどで自動的に飛ばされるURL
+LOGIN_URL = '/accounts/login/'
+
+
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
