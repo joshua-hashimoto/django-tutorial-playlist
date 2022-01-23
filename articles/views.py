@@ -1,3 +1,4 @@
+from django.contrib.auth.decorators import login_required
 from django.http import Http404, HttpResponseBadRequest
 from django.urls import reverse
 from django.shortcuts import render, get_object_or_404, redirect
@@ -31,6 +32,7 @@ def article_detail_view(request, article_slug):
     return render(request, template_name, context)
 
 
+@login_required
 def article_create_view(request):
     form = ArticleForm(request.POST or None, request.FILES or None)
     if form.is_valid():
@@ -49,6 +51,7 @@ def article_create_view(request):
     return render(request, template_name, context)
 
 
+@login_required
 def article_edit_view(request, article_slug):
     article = get_object_or_404(Article, slug=article_slug, author=request.user)
     form = ArticleForm(request.POST or None, request.FILES or None, instance=article)
@@ -64,6 +67,7 @@ def article_edit_view(request, article_slug):
     return render(request, template_name, context)
 
 
+@login_required
 def article_delete_view(request, article_slug):
     article = get_object_or_404(Article, slug=article_slug, author=request.user)
 
