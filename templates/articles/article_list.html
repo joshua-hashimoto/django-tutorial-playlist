@@ -7,6 +7,7 @@
 {% block content %}
 <div class="section">
     <h1>記事一覧</h1>
+    {% include "partials/search_field.html" %}
     <div class="tile is-parent is-vertical">
         {% for object in object_list %}
             <div class="tile is-child notification">

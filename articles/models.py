@@ -23,6 +23,10 @@ class Article(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     # TODO: タグを追加する
+    # TODO: 公開日を追加する
+
+    class Meta:
+        ordering = ['-created_at', ]
 
     def __str__(self):
         return self.title

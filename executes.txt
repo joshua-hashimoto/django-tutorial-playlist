@@ -42,3 +42,30 @@ Password:
 Password (again): 
 Superuser created successfully.
 (django-tutorial-playlist) onandgo @~/dev/projects/youtube/prod/django-tutorial-playlist: 
+
+
+-----------
+
+Execution sample for Lesson 27
+
+import random
+import string
+
+from django.contrib.auth import get_user_model
+from articles.models import Article
+
+User = get_user_model()
+author = User.objects.get(username="onandgo")
+
+str_range = 25
+
+for index in range(1, 16):
+    title_rand_string = [random.choice(string.ascii_uppercase + string.digits) for _ in range(str_range)]
+    title_joined_str = "".join(title_rand_string)
+    description_rand_string = [random.choice(string.ascii_uppercase + string.digits) for _ in range(str_range)]
+    description_joined_str = "".join(description_rand_string)
+    slug = f"example-article-{index}"
+    title = f"Example記事{index} {title_joined_str}"
+    description = f"概要、{description_joined_str}"
+    content = f"内容内容内容、Example {index}"
+    Article.objects.create(slug=slug, title=title, description=description, content=content, author=author)

@@ -1,4 +1,5 @@
 from django.contrib.auth.decorators import login_required
+from django.db.models import Q
 from django.http import Http404, HttpResponseBadRequest
 from django.urls import reverse
 from django.shortcuts import render, get_object_or_404, redirect
@@ -8,7 +9,12 @@ from .models import Article
 
 
 def article_list_view(request):
-    articles = Article.objects.all().order_by("-created_at")
+    query_string = request.GET.get("query", None)
+    if (query_string):
+        lookup = Q(title__icontains=query_string) | Q(description__icontains=query_string)
+        articles = Article.objects.filter(lookup)
+    else:
+        articles = Article.objects.all()
     context = {
         "object_list": articles,
     }
