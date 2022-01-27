@@ -10,7 +10,7 @@ from .models import Article
 
 def article_list_view(request):
     query_string = request.GET.get("query", None)
-    if (query_string):
+    if query_string:
         lookup = Q(title__icontains=query_string) | Q(description__icontains=query_string)
         articles = Article.objects.filter(lookup)
     else:
