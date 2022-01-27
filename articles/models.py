@@ -2,10 +2,45 @@
 
 from django.conf import settings
 from django.db import models
+from django.db.models import Q
 from django.urls import reverse
 
 
 User = settings.AUTH_USER_MODEL
+
+
+class ArticleQuerySet(models.QuerySet):
+    def all(self):
+        return self.filter(is_active=True)
+
+    def search(self, query_string=None):
+        if query_string is None:
+            return self.all()
+        lookup = (
+            Q(is_active=True)
+            & (Q(title__icontains=query_string)
+               | Q(description__icontains=query_string))
+
+        )
+        return self.filter(lookup)
+
+    def all_deleted(self):
+        return self.filter(is_active=False)
+
+
+class ArticleManager(models.Manager):
+    def get_queryset(self):
+        return ArticleQuerySet(self.model, using=self._db)
+
+    def all(self):
+        return self.get_queryset().all()
+
+    def search(self, query_string=None):
+        queryset = self.get_queryset().search(query_string)
+        return queryset
+
+    def all_deleted(self):
+        return self.get_queryset().all_deleted()
 
 
 def upload_image_to(instance, filename):
@@ -22,8 +57,10 @@ class Article(models.Model):
     content = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+    is_active = models.BooleanField(default=True)
     # TODO: タグを追加する
-    # TODO: 公開日を追加する
+
+    objects = ArticleManager()
 
     class Meta:
         ordering = ['-created_at', ]

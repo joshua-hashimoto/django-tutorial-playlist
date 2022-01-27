@@ -10,11 +10,9 @@ from .models import Article
 
 def article_list_view(request):
     query_string = request.GET.get("query", None)
-    if query_string:
-        lookup = Q(title__icontains=query_string) | Q(description__icontains=query_string)
-        articles = Article.objects.filter(lookup)
-    else:
-        articles = Article.objects.all()
+    articles = Article.objects.search(query_string)
+    # articles = Article.objects.filter(is_active=False)
+    # articles = Article.objects.all_deleted()
     context = {
         "object_list": articles,
     }
@@ -78,7 +76,8 @@ def article_delete_view(request, article_slug):
     article = get_object_or_404(Article, slug=article_slug, author=request.user)
 
     if request.method == "POST":
-        article.delete()
+        article.is_active = False
+        article.save()
         success_url = reverse("articles:article_list")
         return redirect(success_url)
 
