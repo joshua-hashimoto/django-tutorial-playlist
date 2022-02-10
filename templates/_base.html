@@ -5,7 +5,11 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- flatpickr -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <!-- bulma -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
+    <!-- local -->
     <link rel="stylesheet" href="{% static 'css/index.css' %}">
     <title>
         {% block title %}Django基礎{% endblock title %}
@@ -22,7 +26,11 @@
             </div>
         </div>
     </div>
+    <!-- flatpickr -->
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <!-- local -->
     <script src="{% static 'js/index.js' %}"></script>
     <script src="{% static 'js/bulma.js' %}"></script>
+    <script src="{% static 'js/flatpickr.js' %}"></script>
 </body>
 </html>

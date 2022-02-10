@@ -9,8 +9,15 @@ from .models import Article
 
 
 def article_list_view(request):
-    query_string = request.GET.get("query", None)
-    articles = Article.objects.search(query_string)
+    # 1: 記事が基本的に公開日以降のものを返す <--> 現在日時より前に公開日が設定されている記事に関しては基本的に表示しない
+    # 2: アクセスしているユーザーの記事は全て表示する
+    articles = Article.objects.published()
+    if request.user.is_authenticated:
+        user_articles = Article.objects.filter(author=request.user, is_active=True)
+        # (articles | user_articles)で2つのクエリセットを一緒にし、.distinct()で重複しているデータを排除
+        articles = (articles | user_articles).distinct()
+    if query_string := request.GET.get("query", None):
+        articles = Article.objects.search(query_string)
     # articles = Article.objects.filter(is_active=False)
     # articles = Article.objects.all_deleted()
     context = {
@@ -26,7 +33,7 @@ def article_detail_view(request, article_slug):
     # except:
     #     raise Http404
 
-    article = get_object_or_404(Article, slug=article_slug)
+    article = get_object_or_404(Article, slug=article_slug, is_active=True)
     is_user_article = article.author == request.user
     context = {
         "object": article,
@@ -50,6 +57,7 @@ def article_create_view(request):
         return redirect("articles:article_detail", article_slug=article.slug)
     context = {
         "form": form,
+        "back_url": reverse("articles:article_list"),
     }
     template_name = "articles/article_create.html"
     return render(request, template_name, context)
@@ -66,6 +74,7 @@ def article_edit_view(request, article_slug):
     context = {
         "form": form,
         "object": article,
+        "back_url": reverse("articles:article_detail", kwargs={"article_slug": article.slug}),
     }
     template_name = "articles/article_edit.html"
     return render(request, template_name, context)

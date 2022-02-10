@@ -4,6 +4,7 @@ from django.conf import settings
 from django.db import models
 from django.db.models import Q
 from django.urls import reverse
+from django.utils import timezone
 
 
 User = settings.AUTH_USER_MODEL
@@ -13,9 +14,18 @@ class ArticleQuerySet(models.QuerySet):
     def all(self):
         return self.filter(is_active=True)
 
+    def published(self):
+        now = timezone.now()
+        lookup = (
+            Q(is_active=True)
+            & Q(publish_at__lte=now)
+        )
+        queryset = self.filter(lookup)
+        return queryset
+
     def search(self, query_string=None):
         if query_string is None:
-            return self.all()
+            return self.filter(is_active=True)
         lookup = (
             Q(is_active=True)
             & (Q(title__icontains=query_string)
@@ -34,6 +44,10 @@ class ArticleManager(models.Manager):
 
     def all(self):
         return self.get_queryset().all()
+
+    def published(self):
+        queryset = self.get_queryset().published()
+        return queryset
 
     def search(self, query_string=None):
         queryset = self.get_queryset().search(query_string)
@@ -57,6 +71,7 @@ class Article(models.Model):
     content = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+    publish_at = models.DateTimeField(auto_now=False, auto_now_add=False, blank=True, null=True)
     is_active = models.BooleanField(default=True)
     # TODO: タグを追加する
 
@@ -76,3 +91,9 @@ class Article(models.Model):
         if len(description) > 50:
             return description[:50] + "..."
         return description
+
+    @property
+    def is_published(self):
+        if self.publish_at is None:
+            return False
+        return timezone.now() > self.publish_at

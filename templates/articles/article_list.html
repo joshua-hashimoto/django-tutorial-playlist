@@ -10,7 +10,7 @@
     {% include "partials/search_field.html" %}
     <div class="tile is-parent is-vertical">
         {% for object in object_list %}
-            <div class="tile is-child notification">
+            <div class="tile is-child notification {% if not object.is_published %}is-warning is-light{% endif %}">
                 <p>
                     <a class="title" href="{{ object.get_absolute_url }}">{{ object.title }}</a>
                 </p>
