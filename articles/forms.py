@@ -4,10 +4,10 @@ from django import forms
 
 
 class ArticleForm(forms.Form):
-    slug = forms.CharField(max_length=150, widget=forms.TextInput(attrs={"class": "input"}))
-    title = forms.CharField(max_length=120, widget=forms.TextInput(attrs={"class": "input"}))
-    description = forms.CharField(max_length=250, widget=forms.TextInput(attrs={"class": "input"}))
-    content = forms.CharField(widget=forms.Textarea(attrs={"class": "textarea"}))
+    slug = forms.CharField(max_length=150, widget=forms.TextInput(attrs={"class": "form-control"}))
+    title = forms.CharField(max_length=120, widget=forms.TextInput(attrs={"class": "form-control"}))
+    description = forms.CharField(max_length=250, widget=forms.TextInput(attrs={"class": "form-control"}))
+    content = forms.CharField(widget=forms.Textarea(attrs={"class": "form-control"}))
 
     def clean_slug(self):
         slug = self.cleaned_data.get("slug", None)
