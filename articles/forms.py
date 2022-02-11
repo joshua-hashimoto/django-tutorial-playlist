@@ -11,7 +11,7 @@ class ArticleForm(forms.ModelForm):
         widget=forms.ClearableFileInput(),
         required=False
     )
-    description = forms.CharField(max_length=250, widget=forms.Textarea(attrs={"class": "textarea", "rows": 3}))
+    description = forms.CharField(max_length=250, widget=forms.Textarea(attrs={"class": "form-control", "rows": 3}))
 
     class Meta:
         model = Article
@@ -23,9 +23,9 @@ class ArticleForm(forms.ModelForm):
             "content",
         )
         widgets = {
-            "slug": forms.TextInput(attrs={"class": "input"}),
-            "title": forms.TextInput(attrs={"class": "input"}),
-            'content': forms.Textarea(attrs={"class": "textarea", "rows": 7}),
+            "slug": forms.TextInput(attrs={"class": "form-control"}),
+            "title": forms.TextInput(attrs={"class": "form-control"}),
+            'content': forms.Textarea(attrs={"class": "form-control", "rows": 7}),
         }
 
     # モデル側のバリデーションが効く
