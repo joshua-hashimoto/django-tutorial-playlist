@@ -8,7 +8,7 @@ from .models import Article
 class ArticleForm(forms.ModelForm):
     thumbnail = forms.ImageField(
         label='サムネイル',
-        widget=forms.ClearableFileInput(),
+        widget=forms.ClearableFileInput(attrs={"class": "form-control"}),
         required=False
     )
     description = forms.CharField(max_length=250, widget=forms.Textarea(attrs={"class": "form-control", "rows": 3}))
