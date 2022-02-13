@@ -5,12 +5,12 @@
 {% endblock title %}
 
 {% block content %}
-<div class="section">
-    <div class="title">ユーザー登録</div>
+<div class="container">
+    <h3>ユーザー登録</h3>
     <form action="." method="post">
         {% csrf_token %}
         {% include "partials/generic_form.html" %}
-        <button class="button is-primary" type="submit">登録</button>
+        <button class="btn btn-success" type="submit">登録</button>
     </form>
 </div>
 {% endblock content %}
