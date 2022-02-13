@@ -1,30 +1,22 @@
 <form action="." method="POST" enctype="multipart/form-data">
 {% comment %} <form action="{% url 'articles:article_create' %}" method="POST" enctype="multipart/form-data"> {% endcomment %}
     {% csrf_token %}
-    {% comment %} <div class="field">
-        <label class="label">URL名</label>
-        <div class="control">
-            <input class="input" type="text" name="slug" placeholder="articles/の後に続くURL名を設定">
-        </div>
+    {% comment %} <div class="mb-3">
+        <label class="form-label">URL名</label>
+        <input class="form-control" type="text" name="slug" placeholder="articles/の後に続くURL名を設定">
     </div>
-    <div class="field">
-        <label class="label">記事タイトル</label>
-        <div class="control">
-            <input class="input" type="text" name="title">
-        </div>
+    <div class="mb-3">
+        <label class="form-label">記事タイトル</label>
+        <input class="form-control" type="text" name="title">
     </div>
-    <div class="field">
-        <label class="label">記事の概要</label>
-        <div class="control">
-            <input class="input" type="text" name="description">
-        </div>
+    <div class="mb-3">
+        <label class="form-label">記事の概要</label>
+        <input class="form-control" type="text" name="description">
     </div>
-    <div class="field">
-        <label class="label">内容</label>
-        <div class="control">
-            <textarea class="textarea" name="content" id="content" cols="30" rows="10" placeholder="記事内容を自由に書いて下さい"></textarea>
-        </div>
+    <div class="mb-3">
+        <label class="form-label">内容</label>
+        <textarea class="form-control" name="content" id="content" cols="30" rows="10" placeholder="記事内容を自由に書いて下さい"></textarea>
     </div> {% endcomment %}
     {{ form.as_p }}
-    <button class="button is-primary" type="submit">保存</button>
+    <button class="btn btn-success" type="submit">保存</button>
 </form>
