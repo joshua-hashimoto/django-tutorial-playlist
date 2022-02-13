@@ -8,9 +8,7 @@
       </ul>
       <div class="d-flex">
         {% if request.user.is_authenticated %}
-            <div class="navbar-item">
-                {% include "accounts/logout_modal.html" %}
-            </div>
+              {% include "accounts/logout_modal.html" %}
         {% else %}
           <a href="{% url 'accounts:signup' %}" class="btn btn-success">
               <strong>ユーザー登録</strong>
