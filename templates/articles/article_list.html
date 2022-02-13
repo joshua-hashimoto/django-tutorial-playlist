@@ -6,19 +6,29 @@
 
 {% block content %}
 <div class="container">
-    <h1>記事一覧</h1>
-    {% include "partials/search_field.html" %}
-    <div class="row">
-        <div class="col">
-            <div class="row gy-4">
-                {% for object in object_list %}
-                    <a href="{{ object.get_absolute_url }}" class="card text-decoration-none">
-                        <div class="card-body">
-                            <h5 class="card-title">{{ object.title }}</h5>
-                            <h6 class="card-subtitle text-muted">{{ object.get_description }}</h6>
-                        </div>
-                    </a>
-                {% endfor %}
+    <div class="row justify-content-md-center">
+        <div class="col col-8">
+            <div class="row align-items-center mb-4">
+                <div class="col">
+                    <h1>記事一覧</h1>
+                </div>
+                <div class="col">
+                    {% include "partials/search_field.html" %}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <div class="row gy-4">
+                        {% for object in object_list %}
+                            <a href="{{ object.get_absolute_url }}" class="card text-decoration-none">
+                                <div class="card-body">
+                                    <h5 class="card-title">{{ object.title }}</h5>
+                                    <h6 class="card-subtitle text-muted">{{ object.get_description }}</h6>
+                                </div>
+                            </a>
+                        {% endfor %}
+                    </div>
+                </div>
             </div>
         </div>
     </div>
