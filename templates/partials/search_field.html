@@ -1,12 +1,6 @@
 <form method="GET" action=".">
-    <div class="field has-addons is-justify-content-center">
-        <div class="control">
-            <input class="input is-rounded" type="text" placeholder="タイトル、概要" name="query" value="{{ request.GET.query }}">
-        </div>
-        <div class="control">
-            <button class="button is-info is-rounded" type="submit">
-                検索
-            </button>
-        </div>
-      </div>
+    <div class="input-group">
+        <input type="text" class="form-control" placeholder="タイトル、概要" name="query" value="{{ request.GET.query }}" aria-label="search" aria-describedby="search-button">
+        <button class="btn btn-outline-success" type="submit" id="search-button">検索</button>
+    </div>
 </form>

@@ -8,10 +8,10 @@ from .models import Article
 class ArticleForm(forms.ModelForm):
     thumbnail = forms.ImageField(
         label='サムネイル',
-        widget=forms.ClearableFileInput(),
+        widget=forms.ClearableFileInput(attrs={"class": "form-control"}),
         required=False
     )
-    description = forms.CharField(max_length=250, label="概要", widget=forms.Textarea(attrs={"class": "textarea", "rows": 3}))
+    description = forms.CharField(max_length=250, label="概要", widget=forms.Textarea(attrs={"class": "form-control", "rows": 3}))
 
     class Meta:
         model = Article
@@ -30,10 +30,10 @@ class ArticleForm(forms.ModelForm):
             "publish_at": "公開日",
         }
         widgets = {
-            "slug": forms.TextInput(attrs={"class": "input", "placeholder": "https://example/slug/ の slug の部分になります。"}),
-            "title": forms.TextInput(attrs={"class": "input"}),
-            'content': forms.Textarea(attrs={"class": "textarea", "rows": 7}),
-            "publish_at": forms.TextInput(attrs={"id": "calendar", "class": "input", "placeholder": "設定していない場合、その記事は公開されません。"}),
+            "slug": forms.TextInput(attrs={"class": "form-control"}),
+            "title": forms.TextInput(attrs={"class": "form-control"}),
+            'content': forms.Textarea(attrs={"class": "form-control", "rows": 7}),
+            "publish_at": forms.TextInput(attrs={"id": "calendar", "class": "form-control", "placeholder": "設定していない場合、その記事は公開されません。"}),
         }
 
     # モデル側のバリデーションが効く
