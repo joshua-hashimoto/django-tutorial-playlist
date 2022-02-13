@@ -20,7 +20,7 @@
                 <div class="col">
                     <div class="row gy-4">
                         {% for object in object_list %}
-                            <a href="{{ object.get_absolute_url }}" class="card text-decoration-none">
+                            <a href="{{ object.get_absolute_url }}" class="card text-decoration-none {% if not object.is_published %}bg-warning{% endif %}">
                                 <div class="card-body">
                                     <h5 class="card-title">{{ object.title }}</h5>
                                     <h6 class="card-subtitle text-muted">{{ object.get_description }}</h6>
